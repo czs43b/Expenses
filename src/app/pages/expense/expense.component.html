@@ -1,0 +1,25 @@
+<div class="mb-4 d-flex justify-content-between align-items-center">
+    <button type="button" routerLink="/expense-form" class="btn btn-primary" (click)="addExpense()">Add Expense</button>
+    <h5 class="fw-bold align-items-center">Total Expenses: <strong class="text-success">£{{ totalPrice | number: '1.2-2' }}</strong></h5>
+</div>
+@if (unauthorised) {
+  <div class="form-text text-danger fw-bold">Unauthorised!  Please login to add/update items.</div>
+}
+<div *ngFor="let item of items | async" class="mt-4">
+  <div class="d-flex flex-column gap-3">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.title }}</h5>
+          <h2 class="fw-bold text-success">£{{ item.price | number: '1.2-2' }}</h2>
+          <p class="card-text" [innerHTML]="item.description | safeHtml"></p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-success" (click)="editExpense(item.key)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteExpense(item.key)">Remove</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<app-modal [showModal]="isLoginFormModelOpen" (closeModal)="isLoginFormModelOpen = false">
+  <app-login-form (formSubmit)="isLoginFormModelOpen = false"></app-login-form>
+</app-modal>
