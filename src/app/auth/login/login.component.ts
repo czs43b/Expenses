@@ -44,8 +44,9 @@ export class LoginComponent {
 
   onSubmit() {
     this.authService.login(this.loginForm.value.emailAddress, this.loginForm.value.password);
+    
+    this.router.navigate(['./']);
     this.formSubmit.emit();
-    this.router.navigate(['/']);
   }
 
   logOut() {

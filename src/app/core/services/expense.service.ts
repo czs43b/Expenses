@@ -4,12 +4,13 @@ import { IExpense } from '../../models/common.model';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpenseService {
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private toastr: ToastrService) {
   }
 
   getAllExpenses() {
@@ -27,11 +28,21 @@ export class ExpenseService {
   }
 
   getExpense(key: string){
-    return this.afs.collection('expenses').doc(key).valueChanges();
+    let res = this.afs.collection('expenses').doc(key).valueChanges();
+    return res;
   }
 
   addExpense(expense: IExpense){
-    this.afs.collection('expenses').add(expense);
+    this.afs.collection('expenses').add(expense).catch((result) =>{
+      this.toastr.error(result, 'An error occurred',
+        {
+          timeOut: 10000,
+          positionClass: 'toast-top-right',
+          closeButton: true,
+          progressBar: true,
+        }
+      );
+    });
   }
 
   updateExpense(key: string, expense: IExpense){
