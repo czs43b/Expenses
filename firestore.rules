@@ -2,13 +2,76 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // This rule allows anyone with your Firestore database reference to view, edit,
+    // and delete all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // all client requests to your Firestore database will be denied until you Update
+    // your rules
     match /{document=**} {
-      allow read;
-      allow write: if isAuthenticated();
-    }
-    
-    function isAuthenticated() {
+      allow create: if canCreate();
+      //allow read: if canRead();
+      allow read: 	if canRead();
+      allow update: if canUpdate();
+      allow delete: if canDelete();
+      
+      //allow write: if testing();
+      //allow write: if isAdmin();
+      
+      function isAdmin() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "C" in data.permissions &&
+          "R" in data.permissions &&
+          "U" in data.permissions;
+      }
+      
+      // function testing() {
+      //   let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+      //   return isAuthenticated() &&
+      //     data.perms['create'] == true &&
+      //     data.perms['read'] &&
+      //     data.perms['update'] &&
+      //     data.perms['delete'];
+      // }
+      
+      function isAuthenticated() {
       	return request.auth != null;
+      }
+      
+      function isReader() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "R" in data.permissions;
+      }
+      
+      function canCreate() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "C" in data.permissions;
+      }
+      
+      function canRead() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "R" in data.permissions;
+      }
+      
+      function canUpdate() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "U" in data.permissions;
+      }
+      
+      function canDelete() {
+        let data = get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+        return isAuthenticated() &&
+          "D" in data.permissions;
+      }
     }
   }
 }
