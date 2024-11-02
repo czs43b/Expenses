@@ -50,9 +50,9 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   getExpense(key: string){
-      this.afs.getExpense(key).subscribe((data: any) => {
-        this.expenseForm.patchValue(data);
-      });
+    this.afs.getExpense(key).subscribe((data: any) => {
+      this.expenseForm.patchValue(data);
+    });
   }
 
   addExpense(){
@@ -68,12 +68,12 @@ export class ExpenseFormComponent implements OnInit {
 
   updateExpense(){
     if (this.expenseForm.valid && this.authorised) {
-    this.activatedRoute.params.subscribe({
-      next:(params) =>
-        params['id'] ? this.afs.updateExpense(params['id'], 
-          this.expenseForm.value) : 
-          this.afs.addExpense(this.expenseForm.value)
-    });
+      this.activatedRoute.params.subscribe({
+        next:(params) =>
+          params['id'] 
+            ? this.afs.updateExpense(params['id'], this.expenseForm.value) 
+            : this.afs.addExpense(this.expenseForm.value)
+      });
       this.router.navigate(['./']);
     }
     else 

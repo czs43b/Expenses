@@ -34,7 +34,7 @@ export class ExpenseService {
 
   addExpense(expense: IExpense){
     this.afs.collection('expenses').add(expense).catch((result) =>{
-      this.toastr.error(result, 'An error occurred',
+      this.toastr.error(result.message, 'An error occurred',
         {
           timeOut: 10000,
           positionClass: 'toast-top-right',
@@ -46,10 +46,28 @@ export class ExpenseService {
   }
 
   updateExpense(key: string, expense: IExpense){
-    this.afs.collection('expenses').doc(key).update(expense);
+    this.afs.collection('expenses').doc(key).update(expense).catch((result) =>{
+      this.toastr.error(result.message, 'An error occurred',
+        {
+          timeOut: 10000,
+          positionClass: 'toast-top-right',
+          closeButton: true,
+          progressBar: true,
+        }
+      );
+    });
   }
 
   deleteExpense(key: string){
-    this.afs.doc('expenses/' + key).delete();
+    this.afs.doc('expenses/' + key).delete().catch((result) =>{
+      this.toastr.error(result.message, 'An error occurred',
+        {
+          timeOut: 10000,
+          positionClass: 'toast-top-right',
+          closeButton: true,
+          progressBar: true,
+        }
+      );
+    });
   }
 }
