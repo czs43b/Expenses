@@ -25,7 +25,16 @@ export class AppComponent implements OnInit {
   }
 
   logOut() {
-    this.auth.logout();
+    this.auth.logout().then(() => {
+      this.toastr.warning('Logged out', 'User logged out successfully', 
+        {
+          timeOut: 5000,
+          positionClass: 'toast-top-right',
+          closeButton: true,
+          progressBar: true,
+        }
+      );
+    });
   }
 
   ngOnInit(): void {
