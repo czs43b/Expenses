@@ -4,6 +4,7 @@ import { UserModel } from '../../models/user';
 import firebase from 'firebase/compat/app';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   user$: Observable<any>;
   
-  constructor(private auth: AngularFireAuth) { 
+  constructor(private auth: AngularFireAuth, private router: Router) { 
     this.user$ = auth.authState;
   }
 
