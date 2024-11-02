@@ -5,6 +5,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth'
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
 import { routes } from './app.routes';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 import { firebaseConfig } from './core/constants/constants';
 
@@ -17,6 +19,7 @@ export const appConfig: ApplicationConfig = {
       AngularFireAuthModule,
       AngularFireDatabaseModule,
       AngularFirestoreModule
-    ])
+    ]), provideAnimations(),
+    provideToastr()
   ]
 };

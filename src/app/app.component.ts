@@ -5,6 +5,7 @@ import { SafeHtmlPipe } from './pipes/safe-html-pipe';
 import { User } from 'firebase/auth';
 import { UserModel } from './models/user';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class AppComponent implements OnInit {
   isLoginFormModelOpen = false;
   isLoggedIn = inject(AuthService).isLoggedIn();
   user!: string;
+  constructor(private toastr: ToastrService) {
+    
+  }
 
   logOut() {
     this.auth.logout();
@@ -31,6 +35,14 @@ export class AppComponent implements OnInit {
         if (usr) {
           let parsedUsr = JSON.parse(usr);
           this.user = parsedUsr.email;
+          this.toastr.success(this.user, 'User logged in successfully', 
+            {
+              timeOut: 5000,
+              positionClass: 'toast-top-right',
+              closeButton: true,
+              progressBar: true,
+            }
+          );
         }
       }
     });

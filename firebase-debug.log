@@ -1,0 +1,22 @@
+[debug] [2024-11-02T12:25:27.212Z] ----------------------------------------------------------------------
+[debug] [2024-11-02T12:25:27.215Z] Command:       c:\Program Files\nodejs\node.exe C:\Users\Craig\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-11-02T12:25:27.215Z] CLI Version:   13.23.1
+[debug] [2024-11-02T12:25:27.215Z] Platform:      win32
+[debug] [2024-11-02T12:25:27.215Z] Node Version:  v20.18.0
+[debug] [2024-11-02T12:25:27.215Z] Time:          Sat Nov 02 2024 12:25:27 GMT+0000 (Greenwich Mean Time)
+[debug] [2024-11-02T12:25:27.215Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-02T12:25:27.276Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-02T12:25:27.278Z] > authorizing via signed-in user (codefusion8@gmail.com)
+[debug] [2024-11-02T12:25:27.278Z] [iam] checking project expenses-5d437 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-11-02T12:25:27.280Z] Checked if tokens are valid: true, expires at: 1730553081567
+[debug] [2024-11-02T12:25:27.280Z] Checked if tokens are valid: true, expires at: 1730553081567
+[debug] [2024-11-02T12:25:27.281Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/expenses-5d437:testIamPermissions [none]
+[debug] [2024-11-02T12:25:27.281Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/expenses-5d437:testIamPermissions x-goog-quota-user=projects/expenses-5d437
+[debug] [2024-11-02T12:25:27.281Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/expenses-5d437:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-11-02T12:25:27.521Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/expenses-5d437:testIamPermissions 200
+[debug] [2024-11-02T12:25:27.521Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/expenses-5d437:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-11-02T12:25:27.522Z] Checked if tokens are valid: true, expires at: 1730553081567
+[debug] [2024-11-02T12:25:27.522Z] Checked if tokens are valid: true, expires at: 1730553081567
+[debug] [2024-11-02T12:25:27.522Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/expenses-5d437 [none]
+[debug] [2024-11-02T12:25:27.833Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/expenses-5d437 200
