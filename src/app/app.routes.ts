@@ -4,7 +4,8 @@ import { ExpenseFormComponent } from './pages/expense-form/expense-form.componen
 
 export const routes: Routes = [
     { 
-        path: '', component: ExpenseComponent 
+        path: '', 
+        loadComponent: () => import('./pages/expense/expense.component').then(m => m.ExpenseComponent)
     },
     { 
         path: 'expense-form', 
@@ -12,7 +13,7 @@ export const routes: Routes = [
     },
     { 
         path: 'expense-form/:id', 
-        loadComponent: () => import('./pages/expense/expense.component').then(m => m.ExpenseComponent)
+        loadComponent: () => import('./pages/expense-form/expense-form.component').then(m => m.ExpenseFormComponent)
         //component: ExpenseFormComponent 
     }, 
     {
