@@ -20,6 +20,7 @@
       </div>
   </div>
 </div>
+<button class="btn btn-info" (click)="openDialog()">Modal</button>
 <app-modal [showModal]="isLoginFormModelOpen" (closeModal)="isLoginFormModelOpen = false">
   <app-login-form (formSubmit)="isLoginFormModelOpen = false"></app-login-form>
 </app-modal>

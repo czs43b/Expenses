@@ -11,6 +11,8 @@ import { SafeHtmlPipe } from "../../pipes/safe-html-pipe";
 import { MessageService } from 'primeng/api';
 import { Toast, ToastItem, ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-expense',
@@ -43,7 +45,8 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   constructor(
     private expenseService: ExpenseService, 
     private router: Router,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    public dialogService: DialogService) {
     this.items = this.getAllDocuments();
     this.isLoggedIn.subscribe((data) =>{
       this.authorised = data;
@@ -55,6 +58,13 @@ export class ExpenseComponent implements OnInit, OnDestroy {
       });
     });
   }
+
+  openDialog() {
+    const ref: DynamicDialogRef = this.dialogService.open(LoginComponent, {
+        header: 'Choose a car',
+        width: '70%'
+    });
+}
 
   show() {
     this.messageService.add({ severity: 'error', summary: 'Oops!', detail: 'Looks like something went wrong.', life: 5000 });

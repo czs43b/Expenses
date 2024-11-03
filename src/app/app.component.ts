@@ -6,11 +6,13 @@ import { User } from 'firebase/auth';
 import { UserModel } from './models/user';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SafeHtmlPipe, CommonModule],
+  imports: [RouterOutlet, SafeHtmlPipe, CommonModule, DynamicDialogModule],
+  providers: [DialogService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
