@@ -7,10 +7,13 @@ export const routes: Routes = [
         path: '', component: ExpenseComponent 
     },
     { 
-        path: 'expense-form', component: ExpenseFormComponent 
+        path: 'expense-form', 
+        loadComponent: () => import('./pages/expense-form/expense-form.component').then(m => m.ExpenseFormComponent)
     },
     { 
-        path: 'expense-form/:id', component: ExpenseFormComponent 
+        path: 'expense-form/:id', 
+        loadComponent: () => import('./pages/expense/expense.component').then(m => m.ExpenseComponent)
+        //component: ExpenseFormComponent 
     }, 
     {
       path: 'login',
