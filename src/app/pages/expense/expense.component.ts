@@ -57,7 +57,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   }
 
   show() {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    this.messageService.add({ severity: 'error', summary: 'Oops!', detail: 'Looks like something went wrong.', life: 5000 });
   }
 
   getAllDocuments() {
