@@ -23,3 +23,8 @@
 <app-modal [showModal]="isLoginFormModelOpen" (closeModal)="isLoginFormModelOpen = false">
   <app-login-form (formSubmit)="isLoginFormModelOpen = false"></app-login-form>
 </app-modal>
+
+<div class="card flex justify-content-center">
+  <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+  <p-button (onClick)="show()" label="Show" />
+</div>

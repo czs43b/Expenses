@@ -8,6 +8,9 @@ import { AuthService } from '../../core/services/auth.service';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { LoginComponent } from '../../auth/login/login.component';
 import { SafeHtmlPipe } from "../../pipes/safe-html-pipe";
+import { MessageService } from 'primeng/api';
+import { Toast, ToastItem, ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-expense',
@@ -19,8 +22,11 @@ import { SafeHtmlPipe } from "../../pipes/safe-html-pipe";
     AsyncPipe,
     ModalComponent,
     LoginComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ToastModule,
+    ButtonModule
 ],
+  providers: [MessageService],
   templateUrl: './expense.component.html',
   styleUrl: './expense.component.css'
 })
@@ -34,7 +40,10 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   unauthorised: boolean = false;
   isLoginFormModelOpen = false;
 
-  constructor(private expenseService: ExpenseService, private router: Router) {
+  constructor(
+    private expenseService: ExpenseService, 
+    private router: Router,
+    private messageService: MessageService) {
     this.items = this.getAllDocuments();
     this.isLoggedIn.subscribe((data) =>{
       this.authorised = data;
@@ -47,15 +56,19 @@ export class ExpenseComponent implements OnInit, OnDestroy {
     });
   }
 
-  getAllDocuments(){
+  show() {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+  }
+
+  getAllDocuments() {
     return this.expenseService.getAllExpenses();
   }
 
-  editExpense(key: string){
+  editExpense(key: string) {
     this.router.navigate(['/expense-form/' + key]);
   }
 
-  deleteExpense(key: string){
+  deleteExpense(key: string) {
     if (this.authorised) {
       this.expenseService.deleteExpense(key);
     }    
@@ -64,7 +77,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
     }
   }
 
-  addExpense(){
+  addExpense() {
     if (this.authorised) {
       this.router.navigate(['/expense-form']);
     }  
