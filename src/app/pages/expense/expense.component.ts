@@ -13,6 +13,8 @@ import { Toast, ToastItem, ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MyDB } from '../../models/MyDb';
+import { IDBPDatabase, openDB } from 'idb';
 
 @Component({
   selector: 'app-expense',
@@ -41,6 +43,7 @@ export class ExpenseComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
   unauthorised: boolean = false;
   isLoginFormModelOpen = false;
+  db!: IDBPDatabase<MyDB>;
 
   constructor(
     private expenseService: ExpenseService, 
@@ -55,8 +58,29 @@ export class ExpenseComponent implements OnInit, OnDestroy {
       this.totalPrice = 0;
       data.forEach(element => {
         this.totalPrice += Number(element.price);
+        this.addItem([ 
+          {
+            'price': element.price, 
+            'title': element.title, 
+            'descrptiom': element.description
+          }]);
       });
     });
+    this.connectToDb();
+  }
+
+  async connectToDb() {
+    this.db = await openDB<MyDB>('craig', 1, {
+      upgrade(db) {
+        db.createObjectStore('user-store');
+      },
+    });
+
+    //this.addUser('testing2');
+  }
+
+  addItem(item: any) {
+    return this.db.add('user-store',item);
   }
 
   openDialog() {

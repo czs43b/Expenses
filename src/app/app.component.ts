@@ -7,6 +7,8 @@ import { UserModel } from './models/user';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { IDBPDatabase, openDB } from 'idb';
+import { MyDB } from './models/MyDb';
 
 @Component({
   selector: 'app-root',
@@ -21,9 +23,24 @@ export class AppComponent implements OnInit {
   auth = inject(AuthService);
   isLoginFormModelOpen = false;
   isLoggedIn = inject(AuthService).isLoggedIn();
+  db!: IDBPDatabase<MyDB>;
   user!: string;
   constructor(private toastr: ToastrService) {
-    
+    //this.connectToDb();
+  }
+
+  async connectToDb() {
+    this.db = await openDB<MyDB>('craig', 1, {
+      upgrade(db) {
+        db.createObjectStore('user-store');
+      },
+    });
+
+    this.addUser('testing2');
+  }
+
+  addUser(name: string) {
+    //return this.db.put('user-store', name, 'names');
   }
 
   logOut() {

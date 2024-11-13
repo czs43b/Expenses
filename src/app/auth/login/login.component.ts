@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -42,8 +42,8 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
-    this.authService.login(this.loginForm.value.emailAddress, this.loginForm.value.password).then(() => {
+  async onSubmit() {
+    await this.authService.login(this.loginForm.value.emailAddress, this.loginForm.value.password).then(() => {
       this.router.navigate(['./']);
     });    
    
